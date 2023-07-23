@@ -1,7 +1,9 @@
 package org.metcamp.web;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.metcamp.web.entities.model.Event;
+import org.metcamp.web.entities.response.EventResponse;
 import org.metcamp.web.entities.response.Response;
 import org.metcamp.web.service.EventService;
 
@@ -11,7 +13,7 @@ import java.util.Scanner;
 public class Main {
 
     private static final Scanner SCANNER = new Scanner(System.in);
-
+    private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final EventService eventService = new EventService();
 
     private static final String WELCOME_MSG = "Bienvenidx al sistema de eventos. Qué acción deseas realizar?";
@@ -40,43 +42,50 @@ public class Main {
 
             switch (option){
                 case 1:
-                    System.out.println("Creando evento");
+                    System.out.println("------> Creando evento");
+
                     System.out.println("Ingrese los datos del evento: ");
                     eventService.createEvent(SCANNER.nextLine());
                     break;
                 case 2:
-                    System.out.println("Lista de eventos");
+                    System.out.println("------> Lista de todos los eventos");
+
                     ArrayList<Event> events = eventService.getAllEvents();
-                    for(Event e:events){
-                        System.out.println(e.getAsJson());;
+                    for(Event e: events){
+                        //System.out.println(e.getAsJson());
+                        System.out.println(MAPPER.writeValueAsString(e));
                     }
                     break;
                 case 3:
-                    System.out.println("Ingrese el evento a buscar");
-                    //Event foundEvent = eventService.getEventById(Integer.parseInt(SCANNER.nextLine()));
+                    System.out.println("------> Ingrese el evento a buscar");
+                    /*
+                    Event foundEvent = eventService.getEventById(scannerNextInt());
                     //System.out.println(foundEvent.getAsJson());
-                    //Event foundEvent = eventService.getEventById(scannerNextInt());
-
-                    Response response = eventService.getEventById(Integer.parseInt(SCANNER.nextLine()));
+                    System.out.println(MAPPER.writeValueAsString(foundEvent));
+                     */
+                    Response response = eventService.getEventById(scannerNextInt());
                     if(response.getCode() == 200){
                         //imprimir el evento + respuesta
-                        System.out.println(response.getE);
+                        //System.out.println(response.getE()); Asi directo no puedo porque es EventResponse
+                        EventResponse eventResponse = (EventResponse) response;
+                        System.out.println(MAPPER.writeValueAsString(eventResponse.getEvent()));
                     } else{
                         //imprimir respuesta
-                        System.out.println(response);
+                        //System.out.println(response.toString());
+                        System.out.println(response); //No hace falta poner el toString
                     }
                     break;
                 case 4:
-                    System.out.println("Modificar un evento");
-                    System.out.println("--->Ingrese el ID del evento a modificar");
-                    int id = Integer.parseInt(SCANNER.nextLine());
-                    System.out.println("--->Ingrese los datos a modificar");
+                    System.out.println("------> Modificar un evento");
+                    System.out.println("Ingrese el ID del evento a modificar");
+                    int id = scannerNextInt();
+                    System.out.println("Ingrese los datos a modificar");
                     String json = SCANNER.nextLine();
                     eventService.updateEvent(id,json);
                     break;
                 case 5:
-                    System.out.println("Borrar evento");
-                    eventService.deleteEvent(Integer.parseInt(SCANNER.nextLine()));
+                    System.out.println("------> Borrar evento");
+                    eventService.deleteEvent(scannerNextInt());
                     break;
                 case 0:
                     System.out.println(GOOD_BYE_MSG);
@@ -87,6 +96,9 @@ public class Main {
         }
     }
 
+    public static int scannerNextInt() {
+        return Integer.parseInt(SCANNER.nextLine());
+    }
 
 
 }

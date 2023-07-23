@@ -25,6 +25,7 @@ import java.util.List;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Event {
+
     //Todos los atributos van a ser privados
     private int id;
     private EventType eventType;
@@ -46,15 +47,6 @@ public class Event {
     private String organizer;
     private List<Price> prices;
 
-
-    public String getAsJson() throws JsonProcessingException {
-        //MAPPER.writeValueAsString(newEvent)
-        //private static final ObjectMapper MAPPER = new ObjectMapper();
-        //Yo quiero que se imprima a si mismo => this
-        return new ObjectMapper().writeValueAsString(this);
-
-    }
-
     public void update(Event newEventData){
         this.eventType = newEventData.getEventType();
         this.name = newEventData.getName();
@@ -63,6 +55,16 @@ public class Event {
         this.attendees = newEventData.getAttendees();
         this.organizer = newEventData.getOrganizer();
         this.prices = newEventData.getPrices();
+        //Lo unico que no cambia es el id
     }
+
+    /*
+    public String getAsJson() throws JsonProcessingException {
+        //MAPPER.writeValueAsString(newEvent)
+        //private static final ObjectMapper MAPPER = new ObjectMapper();
+        //Yo quiero que se imprima a si mismo => this
+        return new ObjectMapper().writeValueAsString(this);
+
+    }*/
 
 }

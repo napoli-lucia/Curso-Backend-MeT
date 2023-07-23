@@ -15,9 +15,6 @@ public class Response {
 
     @Override
     public String toString() {
-        return "Response{" +
-                "code=" + code +
-                ", message='" + message + '\'' +
-                '}';
+        return String.format("{\"code\": %s, \"message\": \"%s\"}", code, message);
     }
 }
