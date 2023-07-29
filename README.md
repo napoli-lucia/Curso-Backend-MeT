@@ -1,7 +1,8 @@
 # Curso-Backend-MeT
- Repo con las prácticas del MetCamp Web 2023
+Repositorio con las prácticas del MetCamp Web 2023
 
-Vamos a aprender habilidades y herramientas para construir un proyecto en Java de un events manager -> ABMC de eventos
+Vamos a aprender habilidades y herramientas para construir un proyecto en Java de un events manager  
+(ABMC de eventos)
 
 - MÓDULO 1: Configuración inicial del proyecto y armado de menú interactivo en consola
 
