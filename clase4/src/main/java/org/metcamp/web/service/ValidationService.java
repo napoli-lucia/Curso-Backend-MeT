@@ -10,6 +10,7 @@ public class ValidationService {
     public void validateCreateEvent(Event event){
         validateId(event.getId());
         validateName(event.getName());
+        //validateDates(event.getStartDateTime(), event.getEndDateTime());
     }
 
     public void validateName (String name) {
@@ -30,15 +31,17 @@ public class ValidationService {
         }
     }
 
-    //Todo: validacion de fecha
     public void validateDates(LocalDateTime startDate, LocalDateTime endDate){
         //Verificar que start sea antes que end
+        if (startDate.isAfter(endDate)){
+            throw new ValidationException("startDate must be before endDate");
+        }
     }
 
-    public boolean validateAttendees(int cantidad){
+    public boolean validateAttendeess(int cantidad){
         return cantidad > 0;
-
-        /*if (cantidad > 0){
+        /*
+        if (cantidad > 0){
             return true;
         }
         return false;

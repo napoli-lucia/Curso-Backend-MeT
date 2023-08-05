@@ -1,6 +1,7 @@
 package org.metcamp.web.service;
 
-import lombok.extern.java.Log;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.metcamp.web.entities.model.Event;
 import org.metcamp.web.entities.response.EventListResponse;
 import org.metcamp.web.entities.response.EventResponse;
@@ -13,7 +14,6 @@ import org.metcamp.web.utils.MapperUtils;
 
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.logging.LogManager;
 
 //@Log
 public class EventService {
@@ -54,6 +54,7 @@ public class EventService {
 
 
     public Response getAllEvents() {
+        //Con log
         //log.info("info - Obteniendo todos los eventos");
         //log.severe("severe - Obteniendo todos los eventos");
         //log.warning("warning - Obteniendo todos los eventos");
@@ -67,12 +68,14 @@ public class EventService {
 
 
     public Response getEventById(int id){
+        /*
         logger.fatal("fatal - El id ingresado es {}", id);
         logger.error("error - El id ingresado es {}", id);
         logger.warn("warn - El id ingresado es {}", id);
         logger.info("info - El id ingresado es {}", id);
         logger.debug("debug - El id ingresado es {}", id);
         logger.trace("trace - El id ingresado es {}", id);
+         */
 
         Optional<Event> foundEvent = repository.find(id);
         return foundEvent.isPresent()

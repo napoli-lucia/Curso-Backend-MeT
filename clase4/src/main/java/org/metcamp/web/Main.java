@@ -15,9 +15,13 @@ public class Main {
 
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final MapperUtils mapperUtils = new MapperUtils();
-    private static final EventService eventService = new EventService();
-    private final EventRepository repository = new EventRepository();
-    private final ValidationService validationService = new ValidationService();
+
+    private static final EventRepository repository = new EventRepository(mapperUtils);
+    private static final ValidationService validationService = new ValidationService();
+    //private static final EventService eventService = new EventService();
+    private static final EventService eventService = new EventService(mapperUtils, repository, validationService);
+
+
 
 
     private static final String WELCOME_MSG = "Bienvenidx al sistema de eventos. Qué acción deseas realizar?";
